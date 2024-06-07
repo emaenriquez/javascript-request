@@ -1,6 +1,6 @@
 async function listaVideos() {
-    let conexion = await fetch("http://localhost:3001/videos",);
-    let conexionComvertida = await conexion.json();
+    let conexion = await fetch("http://localhost:3001/videos");
+    let conexionComvertida = conexion.json();
     return conexionComvertida
     // console.log(conexionComvertida)
 }
@@ -8,5 +8,3 @@ async function listaVideos() {
 export const conexionApi = {
     listaVideos
 }
-
-
