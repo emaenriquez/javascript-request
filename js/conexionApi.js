@@ -24,9 +24,15 @@ async function enviarVideo(titulo, url, imagen, descripcion) {
     return conexionConvertida
 }
 
+async function buscarvideos(palabraClave){
+    const conexion = await fetch(`http://localhost:3001/videos?q=${palabraClave}`)
+    const conexionConvertida = await conexion.json()
+    return conexionConvertida
+}
 
 // npx json-server --watch db.json --port 3001
 export const conexionApi = {
     listaVideos,
-    enviarVideo
+    enviarVideo,
+    buscarvideos
 }

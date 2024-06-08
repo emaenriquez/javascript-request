@@ -1,5 +1,5 @@
 
-import {conexionAPi} from "./conexionApi.js"
+import {conexionApi} from "./conexionApi.js"
 
 const formulario = document.querySelector("[data-formulario]")
 
@@ -10,7 +10,7 @@ async function crearVideo(evento) {
     const imagen = document.querySelector("[data-img]").value
     const description = Math.floor(Math.random * 10).toString()
 
-    conexionAPi.enviarVideo(titulo, url, imagen, description)
+    conexionApi.enviarVideo(titulo, url, imagen, description)
 
     window.location.href = '../pages/envio-concluido.html'
 
