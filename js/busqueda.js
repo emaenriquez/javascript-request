@@ -1,27 +1,32 @@
 
 //  archivo para hacer la busqueda de videos mediante al input
 
-import { conexionApi } from "./conexionApi";
-import crearCard from "./mostrarVideos";
+import { conectaAPI } from "./conectaAPI.js";
+import construyeCard from "./mostrarVideos.js";
 
-const btnBusqueda = document.querySelector('[data-boton-busqueda]')
+//validaciones
 
-async function filtrarVideos(evento){
-    evento.preventDefault()
-    const datosDeBusqueda = document.querySelector("[data-busqueda]").value
+async function buscarVideo(evento){
+    evento.preventDefault();
+    const datosDeBusqueda = document.querySelector("[data-busqueda]").value;
+    const buscar = await conectaAPI.buscarVideo(datosDeBusqueda);
 
-    const busqueda = await conexionApi.buscarvideos(datosDeBusqueda)
+    const listaDeBusqueda = document.querySelector("[data-lista]");
 
-    const lista = document.querySelector("[data-lista]")
+    /* while(listaDeBusqueda.firstChild){
+        console.log(listaDeBusqueda.firstChild)
+        listaDeBusqueda.removeChild(listaDeBusqueda.firstChild)
+    } */
+    listaDeBusqueda.replaceChildren();
 
-    while (lista.firstChild){
-        lista.removeChild(lista.firstChild)
+    buscar.forEach(elemento => listaDeBusqueda.
+        appendChild(construyeCard(elemento.titulo,elemento.descripcion,elemento.url,elemento.imagen)));
+
+    if (listaDeBusqueda.length == 0) {
+        listaDeBusqueda.innerHTML = `<h2 class="mensaje_titulo">no se a podido encontrar la busqueda</h2>`
     }
-
-    busqueda.forEach(item => {
-        lista.appendChild(crearCard(item.titulo,item.descripcion,item.url,item.imagen))
-    });
-
 }
 
-btnBusqueda.addEventListener('click',evento => filtrarVideos(evento))
+const botonBusqueda=document.querySelector("[data-boton-busqueda]");
+
+botonBusqueda.addEventListener("click",evento=>buscarVideo(evento))

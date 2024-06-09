@@ -10,9 +10,16 @@ async function crearVideo(evento) {
     const imagen = document.querySelector("[data-img]").value
     const description = Math.floor(Math.random * 10).toString()
 
-    conexionApi.enviarVideo(titulo, url, imagen, description)
+   
 
-    window.location.href = '../pages/envio-concluido.html'
+    try {
+        conexionApi.enviarVideo(titulo, url, imagen, description)
+        window.location.href = '../pages/envio-concluido.html'
+    } catch (error) {
+        alert(error)
+    }
+
+    
 
 }
 
